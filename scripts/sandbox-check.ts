@@ -25,10 +25,10 @@ const PORT = Number(env.CALLBACK_PORT || 3010)
 const RAW_FILE = 'sandbox-callbacks.jsonl'
 const MASKED_FILE = 'sandbox-callbacks.masked.jsonl'
 
-const ok = (s: string) => console.log(`  ✅ ${s}`)
-const bad = (s: string) => console.log(`  ❌ ${s}`)
+const ok = (s: string) => console.log(`OK ${s}`)
+const bad = (s: string) => console.log(`BAD ${s}`)
 const info = (s: string) => console.log(`     ${s}`)
-const step = (s: string) => console.log(`\n▶ ${s}`)
+const step = (s: string) => console.log(`\nSTEP ${s}`)
 const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms))
 
 // ---------------------------------------------------------------------------
@@ -143,7 +143,7 @@ try {
   checkoutRequestId = push.CheckoutRequestID
   ok(`Accepted: ${push.CustomerMessage ?? push.ResponseDescription}`)
   info(`CheckoutRequestID ${checkoutRequestId}`)
-  info('📱 A prompt should appear on the phone. Enter your M-PESA PIN (sandbox: no money moves).')
+  info('A prompt should appear on the phone. Enter your M-PESA PIN (sandbox: no money moves).')
 } catch (e) {
   results.stkPush = false
   bad(`STK Push failed: ${(e as Error).message}`)
@@ -220,7 +220,7 @@ if (!withRatiba) {
       callbackUrl: `${callbackBase}/cb/ratiba?ref=${ref}`,
     })
     ok(`Accepted: ${res.ResponseBody?.responseDescription ?? res.ResponseHeader?.responseDescription ?? JSON.stringify(res)}`)
-    info('📱 Approve the standing order on the phone.')
+    info('Approve the standing order on the phone.')
     appendFileSync(RAW_FILE, `${JSON.stringify({ at: new Date().toISOString(), path: 'ratiba-create-response', body: res })}\n`)
     if (publicUrl) {
       const cb = await waitForCallback('/cb/ratiba', 180_000)
@@ -252,7 +252,7 @@ finish()
 
 function finish(): never {
   console.log('\n── Summary ──')
-  for (const [k, v] of Object.entries(results)) console.log(`  ${v === true ? '✅' : v === 'skipped' ? '⏭️ ' : '❌'} ${k}`)
+  for (const [k, v] of Object.entries(results)) console.log(`  ${v === true ? 'TRUE' : v === 'skipped' ? 'SKIPPED ' : 'CANCELLED'} ${k}`)
   if (received.length) console.log(`\nRaw callbacks: ${RAW_FILE}\nShareable (phones masked): ${MASKED_FILE}`)
   server?.close()
   process.exit(Object.values(results).includes(false) ? 1 : 0)
