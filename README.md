@@ -30,7 +30,7 @@ record created for *that* Challenge, and the amount, recipient and period are co
 ## Install
 
 ```bash
-npm i mpesa-mpp mppx
+npm i mppx
 ```
 
 ## Server
