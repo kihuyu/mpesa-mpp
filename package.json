@@ -1,0 +1,61 @@
+{
+  "name": "mpesa-mpp",
+  "version": "0.1.0",
+  "description": "M-Pesa payment method for the Machine Payments Protocol (MPP): STK Push charges and Ratiba subscriptions",
+  "type": "module",
+  "sideEffects": false,
+  "license": "MIT",
+  "files": [
+    "dist",
+    "src"
+  ],
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    },
+    "./client": {
+      "types": "./dist/client/index.d.ts",
+      "default": "./dist/client/index.js"
+    },
+    "./server": {
+      "types": "./dist/server/index.d.ts",
+      "default": "./dist/server/index.js"
+    }
+  },
+  "scripts": {
+    "build": "tsc -p tsconfig.build.json",
+    "typecheck": "tsc --noEmit",
+    "test": "node --import tsx --test test/*.test.ts",
+    "example:server": "tsx --env-file-if-exists=.env examples/server.ts",
+    "example:client": "tsx --env-file-if-exists=.env examples/client.ts",
+    "example:soko": "tsx examples/soko-bei/demo.ts",
+    "example:soko:server": "tsx --env-file-if-exists=.env examples/soko-bei/server.ts",
+    "example:soko:agent": "tsx --env-file-if-exists=.env examples/soko-bei/agent.ts",
+    "example:weather": "tsx examples/weather/demo.ts",
+    "example:weather:server": "tsx --env-file-if-exists=.env examples/weather/server.ts",
+    "example:weather:agent": "tsx --env-file-if-exists=.env examples/weather/agents.ts",
+    "sandbox:check": "tsx --env-file-if-exists=.env scripts/sandbox-check.ts"
+  },
+  "keywords": [
+    "mpp",
+    "machine-payments-protocol",
+    "mpesa",
+    "daraja",
+    "ratiba",
+    "http-402",
+    "agentic-payments"
+  ],
+  "peerDependencies": {
+    "mppx": ">=0.13.0"
+  },
+  "devDependencies": {
+    "@types/node": "^22.0.0",
+    "mppx": "^0.13.4",
+    "tsx": "^4.0.0",
+    "typescript": "^5.6.0"
+  },
+  "engines": {
+    "node": ">=22.9"
+  }
+}
