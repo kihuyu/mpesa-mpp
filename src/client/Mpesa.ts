@@ -2,7 +2,7 @@ import { Challenge, Credential, Method } from 'mppx'
 import * as Methods from '../Methods.js'
 
 export type MpesaClientParameters = {
-  /** M-Pesa number to prompt (07xx..., 2547..., +2547...). Can be resolved per challenge. */
+  /** M-Pesa number to prompt (07xx..., 2547..., +2547...). */
   phone: string | ((challenge: Challenge.Challenge) => string | Promise<string>)
   /**
    * Called once Safaricom has sent the prompt, so the agent or app can tell the
